@@ -1,2 +1,9 @@
-# opora-api
-Repository to host Opora API for a group project
+# Opora API
+
+Repository to host static swagger ui API documentation for Opora group project
+
+https://tarasshablii.github.io/opora-api/
+
+# Use Cases
+
+//TODO
