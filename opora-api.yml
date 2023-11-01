@@ -28,7 +28,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Sponsor'
+                  $ref: '#/components/schemas/SponsorResponse'
         '500':
           $ref: '#/components/responses/InternalServerError'
     post:
@@ -40,14 +40,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Sponsor'
+              $ref: '#/components/schemas/SponsorRequest'
       responses:
         '201':
           description: Sponsor successfully created
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Sponsor'
+                $ref: '#/components/schemas/SponsorResponse'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -77,7 +77,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Sponsor'
+                $ref: '#/components/schemas/SponsorResponse'
         '404':
           $ref: '#/components/responses/NotFound'
         '500':
@@ -98,14 +98,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Sponsor'
+              $ref: '#/components/schemas/SponsorRequest'
       responses:
         '200':
           description: Sponsor successfully updated
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Sponsor'
+                $ref: '#/components/schemas/SponsorResponse'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -134,14 +134,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Sponsor'
+              $ref: '#/components/schemas/SponsorPatch'
       responses:
         '200':
           description: Sponsor successfully updated
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Sponsor'
+                $ref: '#/components/schemas/SponsorResponse'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -200,7 +200,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Initiative'
+                  $ref: '#/components/schemas/InitiativeResponse'
         '500':
           $ref: '#/components/responses/InternalServerError'
     post:
@@ -212,14 +212,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Initiative'
+              $ref: '#/components/schemas/InitiativeRequest'
       responses:
         '201':
           description: Initiative successfully created
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Initiative'
+                $ref: '#/components/schemas/InitiativeResponse'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -249,7 +249,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Initiative'
+                $ref: '#/components/schemas/InitiativeResponse'
         '404':
           $ref: '#/components/responses/NotFound'
         '500':
@@ -270,14 +270,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Initiative'
+              $ref: '#/components/schemas/InitiativeRequest'
       responses:
         '200':
           description: Initiative successfully updated
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Initiative'
+                $ref: '#/components/schemas/InitiativeResponse'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -306,14 +306,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Initiative'
+              $ref: '#/components/schemas/InitiativePatch'
       responses:
         '200':
           description: Initiative successfully updated
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Initiative'
+                $ref: '#/components/schemas/InitiativeResponse'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -485,19 +485,20 @@ paths:
 components:
   schemas:
 
-    Sponsor:
+    SponsorRequest:
       type: object
       required:
-        - id
+        - userName
         - name
         - description
         - contacts
       properties:
-        id:
+        userName:
           type: string
-          format: uuid
+          description: Username used for registration with the platform
         name:
           type: string
+          description: Display name
         description:
           type: string
         media:
@@ -509,7 +510,182 @@ components:
           items:
             $ref: '#/components/schemas/Contact'
 
-    Initiative:
+    SponsorPatch:
+      type: object
+      properties:
+        userName:
+          type: string
+          description: Username used for registration with the platform
+        name:
+          type: string
+          description: Display name
+        description:
+          type: string
+        media:
+          type: string
+          format: uuid
+        contacts:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/Contact'
+
+    SponsorResponse:
+      type: object
+      required:
+        - id
+        - userName
+        - name
+        - description
+        - contacts
+      properties:
+        id:
+          type: string
+          format: uuid
+        userName:
+          type: string
+          description: Username used for registration with the platform
+        name:
+          type: string
+          description: Display name
+        description:
+          type: string
+        media:
+          type: string
+          format: uuid
+        contacts:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/Contact'
+
+    InitiativeRequest:
+      type: object
+      required:
+        - title
+        - description
+        - status
+        - sponsor
+        - contacts
+        - directions
+        - items
+      properties:
+        id:
+          type: string
+          format: uuid
+        title:
+          type: string
+        description:
+          type: string
+        media:
+          type: string
+          format: uuid
+        status:
+          type: string
+          enum:
+            - ACTIVE
+            - COMPLETED
+            - CANCELED
+        isUrgent:
+          type: boolean
+          default: false
+        progress:
+          type: integer
+          minimum: 0
+          maximum: 100
+        sponsor:
+          type: object
+          description: Main info of the sponsor who organized this initiative
+          required:
+            - id
+            - userName
+            - name
+          properties:
+            id:
+              type: string
+              format: uuid
+            userName:
+              type: string
+              description: Username used for registration with the platform
+            name:
+              type: string
+              description: Display name
+        contacts:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/Contact'
+        directions:
+          type: array
+          minItems: 1
+          items:
+            oneOf:
+              - $ref: '#/components/schemas/Address'
+              - $ref: '#/components/schemas/NovaPoshta'
+        items:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/Item'
+
+    InitiativePatch:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        title:
+          type: string
+        description:
+          type: string
+        media:
+          type: string
+          format: uuid
+        status:
+          type: string
+          enum:
+            - ACTIVE
+            - COMPLETED
+            - CANCELED
+        isUrgent:
+          type: boolean
+          default: false
+        progress:
+          type: integer
+          minimum: 0
+          maximum: 100
+        sponsor:
+          type: object
+          description: Main info of the sponsor who organized this initiative
+          properties:
+            id:
+              type: string
+              format: uuid
+            userName:
+              type: string
+              description: Username used for registration with the platform
+            name:
+              type: string
+              description: Display name
+        contacts:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/Contact'
+        directions:
+          type: array
+          minItems: 1
+          items:
+            oneOf:
+              - $ref: '#/components/schemas/Address'
+              - $ref: '#/components/schemas/NovaPoshta'
+        items:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/ItemPatch'
+
+    InitiativeResponse:
       type: object
       required:
         - id
@@ -545,7 +721,22 @@ components:
           minimum: 0
           maximum: 100
         sponsor:
-          $ref: '#/components/schemas/Sponsor'
+          type: object
+          description: Main info of the sponsor who organized this initiative
+          required:
+            - id
+            - userName
+            - name
+          properties:
+            id:
+              type: string
+              format: uuid
+            userName:
+              type: string
+              description: Username used for registration with the platform
+            name:
+              type: string
+              description: Display name
         contacts:
           type: array
           minItems: 1
@@ -555,7 +746,9 @@ components:
           type: array
           minItems: 1
           items:
-            $ref: '#/components/schemas/Direction'
+            oneOf:
+              - $ref: '#/components/schemas/Address'
+              - $ref: '#/components/schemas/NovaPoshta'
         items:
           type: array
           minItems: 1
@@ -577,19 +770,32 @@ components:
           type: array
           minItems: 1
           items:
-            type: string
+            $ref: '#/components/schemas/Phone'
         email:
           type: string
           format: email
+        links:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/Link'
 
-    Direction:
+    Link:
       type: object
-      required: [ ]
+      required:
+        - url
+        - platform
       properties:
-        address:
-          $ref: '#/components/schemas/Address'
-        novaPoshta:
-          $ref: '#/components/schemas/NovaPoshta'
+        url:
+          type: string
+        platform:
+          type: string
+          enum:
+            - facebook
+            - x
+            - instagram
+            - telegram
+            - website
 
     Address:
       type: object
@@ -601,8 +807,9 @@ components:
           type: string
         town:
           type: string
-        description:
+        directions:
           type: string
+          description: Any additional useful information for delivery
 
     NovaPoshta:
       type: object
@@ -617,6 +824,9 @@ components:
           type: integer
         recipient:
           $ref: '#/components/schemas/Contact'
+        directions:
+          type: string
+          description: Any additional useful information for delivery
 
     Item:
       type: object
@@ -631,10 +841,67 @@ components:
         media:
           type: string
           format: uuid
+        unit:
+          type: string
+          default: count
+          enum:
+            - count
+            - kg
+            - l
+            - pack
         target:
           type: integer
+          description: Final goal in amount of units
         current:
           type: integer
+          default: 0
+          description: Current number of units collected
+
+    ItemPatch:
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        media:
+          type: string
+          format: uuid
+        unit:
+          type: string
+          default: count
+          enum:
+            - count
+            - kg
+            - l
+            - pack
+        target:
+          type: integer
+          description: Final goal in amount of units
+        current:
+          type: integer
+          default: 0
+          description: Current number of units collected
+
+    Phone:
+      type: object
+      required:
+        - number
+        - availableOn
+      properties:
+        number:
+          type: string
+        availableOn:
+          type: array
+          minItems: 1
+          items:
+            type: string
+            enum:
+              - cellular
+              - viber
+              - telegram
+              - whatsapp
+              - signal
 
     Media:
       type: object
@@ -674,7 +941,7 @@ components:
       type: oauth2
       flows:
         password:
-          tokenUrl: https://example.com/oauth/token
+          tokenUrl: https://localhost:9000/realms/opora/protocol/openid-connect/token
           scopes: { }
 
   responses:
