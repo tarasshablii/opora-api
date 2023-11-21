@@ -20,6 +20,7 @@ paths:
       tags:
         - Sponsors
       summary: Get a list of all sponsors
+      operationId: getSponsors
       responses:
         '200':
           description: A list of sponsors
@@ -35,6 +36,7 @@ paths:
       tags:
         - Sponsors
       summary: Register a new sponsor
+      operationId: createSponsor
       requestBody:
         required: true
         content:
@@ -64,6 +66,7 @@ paths:
       tags:
         - Sponsors
       summary: Get a sponsor by ID
+      operationId: getSponsor
       parameters:
         - name: id
           in: path
@@ -86,6 +89,7 @@ paths:
       tags:
         - Sponsors
       summary: Update a sponsor by ID
+      operationId: updateSponsor
       parameters:
         - name: id
           in: path
@@ -122,6 +126,7 @@ paths:
       tags:
         - Sponsors
       summary: Partially update a sponsor by ID
+      operationId: patchSponsor
       parameters:
         - name: id
           in: path
@@ -158,6 +163,7 @@ paths:
       tags:
         - Sponsors
       summary: Delete a sponsor by ID
+      operationId: deleteSponsor
       parameters:
         - name: id
           in: path
@@ -184,6 +190,7 @@ paths:
       tags:
         - Initiatives
       summary: Get a list of all initiatives
+      operationId: getInitiatives
       parameters:
         - name: sponsor
           in: query
@@ -207,6 +214,7 @@ paths:
       tags:
         - Initiatives
       summary: Register a new initiative
+      operationId: createInitiative
       requestBody:
         required: true
         content:
@@ -236,6 +244,7 @@ paths:
       tags:
         - Initiatives
       summary: Get an initiative by ID
+      operationId: getInitiative
       parameters:
         - name: id
           in: path
@@ -258,6 +267,7 @@ paths:
       tags:
         - Initiatives
       summary: Update an initiative by ID
+      operationId: updateInitiative
       parameters:
         - name: id
           in: path
@@ -294,6 +304,7 @@ paths:
       tags:
         - Initiatives
       summary: Partially update an initiative by ID
+      operationId: patchInitiative
       parameters:
         - name: id
           in: path
@@ -330,6 +341,7 @@ paths:
       tags:
         - Initiatives
       summary: Delete an initiative by ID
+      operationId: deleteInitiative
       parameters:
         - name: id
           in: path
@@ -356,6 +368,7 @@ paths:
       tags:
         - Media
       summary: Upload a new image
+      operationId: createMedia
       requestBody:
         required: true
         content:
@@ -373,20 +386,11 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  id:
-                    type: string
-                    format: uuid
-                  url:
-                    type: string
-                    format: uri
+                $ref: '#/components/schemas/MediaResponse'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
-        '403':
-          $ref: '#/components/responses/Forbidden'
         '500':
           $ref: '#/components/responses/InternalServerError'
       security:
@@ -397,6 +401,7 @@ paths:
       tags:
         - Media
       summary: Get an image by ID
+      operationId: getMedia
       parameters:
         - name: id
           in: path
@@ -424,6 +429,7 @@ paths:
       tags:
         - Media
       summary: Update an image by ID
+      operationId: updateMedia
       parameters:
         - name: id
           in: path
@@ -461,6 +467,7 @@ paths:
       tags:
         - Media
       summary: Delete an image by ID
+      operationId: deleteMedia
       parameters:
         - name: id
           in: path
@@ -887,11 +894,11 @@ components:
       type: object
       required:
         - number
-        - availableOn
+        - types
       properties:
         number:
           type: string
-        availableOn:
+        types:
           type: array
           minItems: 1
           items:
@@ -903,20 +910,25 @@ components:
               - whatsapp
               - signal
 
-    Media:
+    MediaResponse:
       type: object
       required:
         - id
+        - url
       properties:
         id:
           type: string
           format: uuid
-        description:
+        url:
           type: string
+          format: uri
 
-    Error:
+    ErrorResponse:
       type: object
       properties:
+        timestamp:
+          type: string
+          format: date-time
         message:
           type: string
           description: A human-readable message providing more details about the error.
@@ -950,29 +962,29 @@ components:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Error'
+            $ref: '#/components/schemas/ErrorResponse'
     Unauthorized:
       description: Authentication credentials were missing or incorrect.
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Error'
+            $ref: '#/components/schemas/ErrorResponse'
     Forbidden:
       description: The request was valid but the server is refusing action. The user might not have the necessary permissions for a resource.
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Error'
+            $ref: '#/components/schemas/ErrorResponse'
     NotFound:
       description: The requested resource was not found.
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Error'
+            $ref: '#/components/schemas/ErrorResponse'
 
     InternalServerError:
       description: The server encountered an internal error or misconfiguration and was unable to complete your request.
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Error'
+            $ref: '#/components/schemas/ErrorResponse'
