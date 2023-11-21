@@ -429,14 +429,18 @@ components:
         userName:
           type: string
           description: Username used for registration with the platform
+          example: 'prytula'
         name:
           type: string
           description: Display name
+          example: 'Serhiy Prytula Charity Foundation'
         description:
           type: string
+          example: 'Serhiy Prytula Charity Foundation is focused on strengthening the Defence Forces of Ukraine and providing assistance to the civilians affected by russian aggression.'
         media:
           type: string
           format: uuid
+          example: 'ad7375ec-8c33-4d36-860e-bf16ac57d5ab'
         contacts:
           type: array
           minItems: 1
@@ -455,17 +459,22 @@ components:
         id:
           type: string
           format: uuid
+          example: 'ae92aed5-c5ec-4b8d-99f2-5894d9629a26'
         userName:
           type: string
           description: Username used for registration with the platform
+          example: 'prytula'
         name:
           type: string
           description: Display name
+          example: 'Serhiy Prytula Charity Foundation'
         description:
           type: string
+          example: 'Serhiy Prytula Charity Foundation is focused on strengthening the Defence Forces of Ukraine and providing assistance to the civilians affected by russian aggression.'
         media:
           type: string
           format: uuid
+          example: 'ad7375ec-8c33-4d36-860e-bf16ac57d5ab'
         contacts:
           type: array
           minItems: 1
@@ -483,29 +492,27 @@ components:
         - directions
         - items
       properties:
-        id:
-          type: string
-          format: uuid
         title:
           type: string
+          example: 'Kherson aid'
         description:
           type: string
+          example: 'Urgent drive to provide necessities to Kherson region after Kakhovka dam collapse'
         media:
           type: string
           format: uuid
+          example: '913829c5-6de1-4e44-9ffe-3e7ae84b0d19'
         status:
           type: string
           enum:
             - ACTIVE
             - COMPLETED
             - CANCELED
+          example: 'ACTIVE'
         isUrgent:
           type: boolean
           default: false
-        progress:
-          type: integer
-          minimum: 0
-          maximum: 100
+          example: true
         sponsor:
           type: object
           description: Main info of the sponsor who organized this initiative
@@ -517,12 +524,15 @@ components:
             id:
               type: string
               format: uuid
+              example: 'ae92aed5-c5ec-4b8d-99f2-5894d9629a26'
             userName:
               type: string
               description: Username used for registration with the platform
+              example: 'prytula'
             name:
               type: string
               description: Display name
+              example: 'Serhiy Prytula Charity Foundation'
         contacts:
           type: array
           minItems: 1
@@ -556,26 +566,33 @@ components:
         id:
           type: string
           format: uuid
+          example: 'e22d5ccc-e85e-4cb1-8d8a-9eda1cd412a5'
         title:
           type: string
+          example: 'Kherson aid'
         description:
           type: string
+          example: 'Urgent drive to provide necessities to Kherson region after Kakhovka dam collapse'
         media:
           type: string
           format: uuid
+          example: '913829c5-6de1-4e44-9ffe-3e7ae84b0d19'
         status:
           type: string
           enum:
             - ACTIVE
             - COMPLETED
             - CANCELED
+          example: 'ACTIVE'
         isUrgent:
           type: boolean
           default: false
+          example: true
         progress:
           type: integer
           minimum: 0
           maximum: 100
+          example: 78
         sponsor:
           type: object
           description: Main info of the sponsor who organized this initiative
@@ -587,12 +604,15 @@ components:
             id:
               type: string
               format: uuid
+              example: 'ae92aed5-c5ec-4b8d-99f2-5894d9629a26'
             userName:
               type: string
               description: Username used for registration with the platform
+              example: 'prytula'
             name:
               type: string
               description: Display name
+              example: 'Serhiy Prytula Charity Foundation'
         contacts:
           type: array
           minItems: 1
@@ -620,8 +640,10 @@ components:
       properties:
         firstName:
           type: string
+          example: 'Serhiy'
         lastName:
           type: string
+          example: 'Prytula'
         phones:
           type: array
           minItems: 1
@@ -630,6 +652,7 @@ components:
         email:
           type: string
           format: email
+          example: 'serhiy.prutyla@gmail.com'
         links:
           type: array
           minItems: 1
@@ -644,6 +667,7 @@ components:
       properties:
         url:
           type: string
+          example: 'https://www.facebook.com/prytulafoundation.org'
         platform:
           type: string
           enum:
@@ -652,6 +676,7 @@ components:
             - instagram
             - telegram
             - website
+          example: 'facebook'
 
     Address:
       type: object
@@ -661,11 +686,14 @@ components:
       properties:
         street:
           type: string
+          example: 'vul. Hrushevskoho 1'
         town:
           type: string
+          example: 'Kyiv'
         directions:
           type: string
           description: Any additional useful information for delivery
+          example: 'Accepting deliveries at back door. Please, do not block the driveway.'
 
     NovaPoshta:
       type: object
@@ -676,13 +704,16 @@ components:
       properties:
         town:
           type: string
+          example: 'Kyiv'
         office:
           type: integer
+          example: 345
         recipient:
           $ref: '#/components/schemas/Contact'
         directions:
           type: string
           description: Any additional useful information for delivery
+          example: 'Please, cover shipping expenses.'
 
     Item:
       type: object
@@ -692,11 +723,14 @@ components:
       properties:
         title:
           type: string
+          example: 'blankets'
         description:
           type: string
+          example: 'Blankets of any size and type, the warmer the better'
         media:
           type: string
           format: uuid
+          example: 'd4d5b327-07b2-4f04-9275-e4fa00af87fe'
         unit:
           type: string
           default: count
@@ -708,10 +742,12 @@ components:
         target:
           type: integer
           description: Final goal in amount of units
+          example: 50
         current:
           type: integer
           default: 0
           description: Current number of units collected
+          example: 39
 
     Phone:
       type: object
@@ -721,6 +757,7 @@ components:
       properties:
         number:
           type: string
+          example: '0800 300 114'
         types:
           type: array
           minItems: 1
@@ -732,6 +769,7 @@ components:
               - telegram
               - whatsapp
               - signal
+          example: 'cellular'
 
     MediaResponse:
       type: object
@@ -742,9 +780,11 @@ components:
         id:
           type: string
           format: uuid
+          example: '8751674d-ea92-4a01-95d1-d50e603c6920'
         url:
           type: string
           format: uri
+          example: 'http://localhost:8080/v1/media/8751674d-ea92-4a01-95d1-d50e603c6920'
 
     ErrorResponse:
       type: object
@@ -752,9 +792,11 @@ components:
         timestamp:
           type: string
           format: date-time
+          example: '2023-11-21T14:48:41.877976Z'
         message:
           type: string
           description: A human-readable message providing more details about the error.
+          example: 'JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \"<uuid>\": UUID has to be represented by standard 36-char representation'
         details:
           type: string
           description: Additional details about the error, if available.
@@ -766,12 +808,15 @@ components:
               field:
                 type: string
                 description: The field associated with this error.
+                example: 'uuid'
               message:
                 type: string
                 description: A human-readable message providing more details about the field error.
+                example: 'JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \"<uuid>\": UUID has to be represented by standard 36-char representation'
           description: An array of errors relating to specific fields in the request.
 
   securitySchemes:
+
     OAuth2:
       type: oauth2
       flows:
@@ -780,24 +825,28 @@ components:
           scopes: { }
 
   responses:
+
     BadRequest:
       description: The request could not be understood or was missing required parameters.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
+
     Unauthorized:
       description: Authentication credentials were missing or incorrect.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
+
     Forbidden:
       description: The request was valid but the server is refusing action. The user might not have the necessary permissions for a resource.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
+
     NotFound:
       description: The requested resource was not found.
       content:
