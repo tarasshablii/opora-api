@@ -20,6 +20,7 @@ paths:
       tags:
         - Sponsors
       summary: Get a list of all sponsors
+      operationId: getSponsors
       responses:
         '200':
           description: A list of sponsors
@@ -35,6 +36,7 @@ paths:
       tags:
         - Sponsors
       summary: Register a new sponsor
+      operationId: createSponsor
       requestBody:
         required: true
         content:
@@ -50,20 +52,15 @@ paths:
                 $ref: '#/components/schemas/SponsorResponse'
         '400':
           $ref: '#/components/responses/BadRequest'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '403':
-          $ref: '#/components/responses/Forbidden'
         '500':
           $ref: '#/components/responses/InternalServerError'
-      security:
-        - OAuth2: [ ]
 
   /v1/sponsors/{id}:
     get:
       tags:
         - Sponsors
       summary: Get a sponsor by ID
+      operationId: getSponsor
       parameters:
         - name: id
           in: path
@@ -86,6 +83,7 @@ paths:
       tags:
         - Sponsors
       summary: Update a sponsor by ID
+      operationId: updateSponsor
       parameters:
         - name: id
           in: path
@@ -108,56 +106,15 @@ paths:
                 $ref: '#/components/schemas/SponsorResponse'
         '400':
           $ref: '#/components/responses/BadRequest'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '403':
-          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/NotFound'
         '500':
           $ref: '#/components/responses/InternalServerError'
-      security:
-        - OAuth2: [ ]
-    patch:
-      tags:
-        - Sponsors
-      summary: Partially update a sponsor by ID
-      parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: string
-            format: uuid
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/SponsorPatch'
-      responses:
-        '200':
-          description: Sponsor successfully updated
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SponsorResponse'
-        '400':
-          $ref: '#/components/responses/BadRequest'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '403':
-          $ref: '#/components/responses/Forbidden'
-        '404':
-          $ref: '#/components/responses/NotFound'
-        '500':
-          $ref: '#/components/responses/InternalServerError'
-      security:
-        - OAuth2: [ ]
     delete:
       tags:
         - Sponsors
       summary: Delete a sponsor by ID
+      operationId: deleteSponsor
       parameters:
         - name: id
           in: path
@@ -168,22 +125,17 @@ paths:
       responses:
         '204':
           description: Sponsor successfully deleted
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '403':
-          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/NotFound'
         '500':
           $ref: '#/components/responses/InternalServerError'
-      security:
-        - OAuth2: [ ]
 
   /v1/initiatives:
     get:
       tags:
         - Initiatives
       summary: Get a list of all initiatives
+      operationId: getInitiatives
       parameters:
         - name: sponsor
           in: query
@@ -207,6 +159,7 @@ paths:
       tags:
         - Initiatives
       summary: Register a new initiative
+      operationId: createInitiative
       requestBody:
         required: true
         content:
@@ -222,20 +175,15 @@ paths:
                 $ref: '#/components/schemas/InitiativeResponse'
         '400':
           $ref: '#/components/responses/BadRequest'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '403':
-          $ref: '#/components/responses/Forbidden'
         '500':
           $ref: '#/components/responses/InternalServerError'
-      security:
-        - OAuth2: [ ]
 
   /v1/initiatives/{id}:
     get:
       tags:
         - Initiatives
       summary: Get an initiative by ID
+      operationId: getInitiative
       parameters:
         - name: id
           in: path
@@ -258,6 +206,7 @@ paths:
       tags:
         - Initiatives
       summary: Update an initiative by ID
+      operationId: updateInitiative
       parameters:
         - name: id
           in: path
@@ -280,56 +229,15 @@ paths:
                 $ref: '#/components/schemas/InitiativeResponse'
         '400':
           $ref: '#/components/responses/BadRequest'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '403':
-          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/NotFound'
         '500':
           $ref: '#/components/responses/InternalServerError'
-      security:
-        - OAuth2: [ ]
-    patch:
-      tags:
-        - Initiatives
-      summary: Partially update an initiative by ID
-      parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: string
-            format: uuid
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/InitiativePatch'
-      responses:
-        '200':
-          description: Initiative successfully updated
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/InitiativeResponse'
-        '400':
-          $ref: '#/components/responses/BadRequest'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '403':
-          $ref: '#/components/responses/Forbidden'
-        '404':
-          $ref: '#/components/responses/NotFound'
-        '500':
-          $ref: '#/components/responses/InternalServerError'
-      security:
-        - OAuth2: [ ]
     delete:
       tags:
         - Initiatives
       summary: Delete an initiative by ID
+      operationId: deleteInitiative
       parameters:
         - name: id
           in: path
@@ -340,22 +248,17 @@ paths:
       responses:
         '204':
           description: Initiative successfully deleted
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '403':
-          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/NotFound'
         '500':
           $ref: '#/components/responses/InternalServerError'
-      security:
-        - OAuth2: [ ]
 
   /v1/media:
     post:
       tags:
         - Media
       summary: Upload a new image
+      operationId: createMedia
       requestBody:
         required: true
         content:
@@ -373,30 +276,18 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  id:
-                    type: string
-                    format: uuid
-                  url:
-                    type: string
-                    format: uri
+                $ref: '#/components/schemas/MediaResponse'
         '400':
           $ref: '#/components/responses/BadRequest'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '403':
-          $ref: '#/components/responses/Forbidden'
         '500':
           $ref: '#/components/responses/InternalServerError'
-      security:
-        - OAuth2: [ ]
 
   /v1/media/{id}:
     get:
       tags:
         - Media
       summary: Get an image by ID
+      operationId: getMedia
       parameters:
         - name: id
           in: path
@@ -424,6 +315,7 @@ paths:
       tags:
         - Media
       summary: Update an image by ID
+      operationId: updateMedia
       parameters:
         - name: id
           in: path
@@ -447,20 +339,15 @@ paths:
           description: Image successfully updated
         '400':
           $ref: '#/components/responses/BadRequest'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '403':
-          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/NotFound'
         '500':
           $ref: '#/components/responses/InternalServerError'
-      security:
-        - OAuth2: [ ]
     delete:
       tags:
         - Media
       summary: Delete an image by ID
+      operationId: deleteMedia
       parameters:
         - name: id
           in: path
@@ -471,16 +358,10 @@ paths:
       responses:
         '204':
           description: Image successfully deleted
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '403':
-          $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/NotFound'
         '500':
           $ref: '#/components/responses/InternalServerError'
-      security:
-        - OAuth2: [ ]
 
 components:
   schemas:
@@ -496,34 +377,18 @@ components:
         userName:
           type: string
           description: Username used for registration with the platform
+          example: 'prytula'
         name:
           type: string
           description: Display name
+          example: 'Serhiy Prytula Charity Foundation'
         description:
           type: string
+          example: 'Serhiy Prytula Charity Foundation is focused on strengthening the Defence Forces of Ukraine and providing assistance to the civilians affected by russian aggression.'
         media:
           type: string
           format: uuid
-        contacts:
-          type: array
-          minItems: 1
-          items:
-            $ref: '#/components/schemas/Contact'
-
-    SponsorPatch:
-      type: object
-      properties:
-        userName:
-          type: string
-          description: Username used for registration with the platform
-        name:
-          type: string
-          description: Display name
-        description:
-          type: string
-        media:
-          type: string
-          format: uuid
+          example: 'ad7375ec-8c33-4d36-860e-bf16ac57d5ab'
         contacts:
           type: array
           minItems: 1
@@ -542,17 +407,22 @@ components:
         id:
           type: string
           format: uuid
+          example: 'ae92aed5-c5ec-4b8d-99f2-5894d9629a26'
         userName:
           type: string
           description: Username used for registration with the platform
+          example: 'prytula'
         name:
           type: string
           description: Display name
+          example: 'Serhiy Prytula Charity Foundation'
         description:
           type: string
+          example: 'Serhiy Prytula Charity Foundation is focused on strengthening the Defence Forces of Ukraine and providing assistance to the civilians affected by russian aggression.'
         media:
           type: string
           format: uuid
+          example: 'ad7375ec-8c33-4d36-860e-bf16ac57d5ab'
         contacts:
           type: array
           minItems: 1
@@ -570,29 +440,27 @@ components:
         - directions
         - items
       properties:
-        id:
-          type: string
-          format: uuid
         title:
           type: string
+          example: 'Kherson aid'
         description:
           type: string
+          example: 'Urgent drive to provide necessities to Kherson region after Kakhovka dam collapse'
         media:
           type: string
           format: uuid
+          example: '913829c5-6de1-4e44-9ffe-3e7ae84b0d19'
         status:
           type: string
           enum:
             - ACTIVE
             - COMPLETED
             - CANCELED
+          example: 'ACTIVE'
         isUrgent:
           type: boolean
           default: false
-        progress:
-          type: integer
-          minimum: 0
-          maximum: 100
+          example: true
         sponsor:
           type: object
           description: Main info of the sponsor who organized this initiative
@@ -604,12 +472,15 @@ components:
             id:
               type: string
               format: uuid
+              example: 'ae92aed5-c5ec-4b8d-99f2-5894d9629a26'
             userName:
               type: string
               description: Username used for registration with the platform
+              example: 'prytula'
             name:
               type: string
               description: Display name
+              example: 'Serhiy Prytula Charity Foundation'
         contacts:
           type: array
           minItems: 1
@@ -622,68 +493,13 @@ components:
             oneOf:
               - $ref: '#/components/schemas/Address'
               - $ref: '#/components/schemas/NovaPoshta'
+            discriminator:
+              propertyName: directionsType
         items:
           type: array
           minItems: 1
           items:
             $ref: '#/components/schemas/Item'
-
-    InitiativePatch:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-        title:
-          type: string
-        description:
-          type: string
-        media:
-          type: string
-          format: uuid
-        status:
-          type: string
-          enum:
-            - ACTIVE
-            - COMPLETED
-            - CANCELED
-        isUrgent:
-          type: boolean
-          default: false
-        progress:
-          type: integer
-          minimum: 0
-          maximum: 100
-        sponsor:
-          type: object
-          description: Main info of the sponsor who organized this initiative
-          properties:
-            id:
-              type: string
-              format: uuid
-            userName:
-              type: string
-              description: Username used for registration with the platform
-            name:
-              type: string
-              description: Display name
-        contacts:
-          type: array
-          minItems: 1
-          items:
-            $ref: '#/components/schemas/Contact'
-        directions:
-          type: array
-          minItems: 1
-          items:
-            oneOf:
-              - $ref: '#/components/schemas/Address'
-              - $ref: '#/components/schemas/NovaPoshta'
-        items:
-          type: array
-          minItems: 1
-          items:
-            $ref: '#/components/schemas/ItemPatch'
 
     InitiativeResponse:
       type: object
@@ -700,26 +516,33 @@ components:
         id:
           type: string
           format: uuid
+          example: 'e22d5ccc-e85e-4cb1-8d8a-9eda1cd412a5'
         title:
           type: string
+          example: 'Kherson aid'
         description:
           type: string
+          example: 'Urgent drive to provide necessities to Kherson region after Kakhovka dam collapse'
         media:
           type: string
           format: uuid
+          example: '913829c5-6de1-4e44-9ffe-3e7ae84b0d19'
         status:
           type: string
           enum:
             - ACTIVE
             - COMPLETED
             - CANCELED
+          example: 'ACTIVE'
         isUrgent:
           type: boolean
           default: false
+          example: true
         progress:
           type: integer
           minimum: 0
           maximum: 100
+          example: 78
         sponsor:
           type: object
           description: Main info of the sponsor who organized this initiative
@@ -731,12 +554,15 @@ components:
             id:
               type: string
               format: uuid
+              example: 'ae92aed5-c5ec-4b8d-99f2-5894d9629a26'
             userName:
               type: string
               description: Username used for registration with the platform
+              example: 'prytula'
             name:
               type: string
               description: Display name
+              example: 'Serhiy Prytula Charity Foundation'
         contacts:
           type: array
           minItems: 1
@@ -749,6 +575,8 @@ components:
             oneOf:
               - $ref: '#/components/schemas/Address'
               - $ref: '#/components/schemas/NovaPoshta'
+            discriminator:
+              propertyName: directionsType
         items:
           type: array
           minItems: 1
@@ -760,13 +588,15 @@ components:
       required:
         - firstName
         - lastName
-        - phone
+        - phones
       properties:
         firstName:
           type: string
+          example: 'Serhiy'
         lastName:
           type: string
-        phone:
+          example: 'Prytula'
+        phones:
           type: array
           minItems: 1
           items:
@@ -774,6 +604,7 @@ components:
         email:
           type: string
           format: email
+          example: 'serhiy.prutyla@gmail.com'
         links:
           type: array
           minItems: 1
@@ -788,6 +619,7 @@ components:
       properties:
         url:
           type: string
+          example: 'https://www.facebook.com/prytulafoundation.org'
         platform:
           type: string
           enum:
@@ -796,37 +628,54 @@ components:
             - instagram
             - telegram
             - website
+          example: 'facebook'
 
     Address:
       type: object
       required:
+        - directionsType
         - street
         - town
       properties:
+        directionsType:
+          type: string
+          description: Directions type discriminator
+          default: Address
         street:
           type: string
+          example: 'vul. Hrushevskoho 1'
         town:
           type: string
+          example: 'Kyiv'
         directions:
           type: string
           description: Any additional useful information for delivery
+          example: 'Accepting deliveries at back door. Please, do not block the driveway.'
 
     NovaPoshta:
       type: object
       required:
+        - directionsType
         - town
         - office
         - recipient
       properties:
+        directionsType:
+          type: string
+          description: Directions type discriminator
+          default: NovaPoshta
         town:
           type: string
+          example: 'Kyiv'
         office:
           type: integer
+          example: 345
         recipient:
           $ref: '#/components/schemas/Contact'
         directions:
           type: string
           description: Any additional useful information for delivery
+          example: 'Please, cover shipping expenses.'
 
     Item:
       type: object
@@ -836,11 +685,14 @@ components:
       properties:
         title:
           type: string
+          example: 'blankets'
         description:
           type: string
+          example: 'Blankets of any size and type, the warmer the better'
         media:
           type: string
           format: uuid
+          example: 'd4d5b327-07b2-4f04-9275-e4fa00af87fe'
         unit:
           type: string
           default: count
@@ -852,46 +704,23 @@ components:
         target:
           type: integer
           description: Final goal in amount of units
+          example: 50
         current:
           type: integer
           default: 0
           description: Current number of units collected
-
-    ItemPatch:
-      type: object
-      properties:
-        title:
-          type: string
-        description:
-          type: string
-        media:
-          type: string
-          format: uuid
-        unit:
-          type: string
-          default: count
-          enum:
-            - count
-            - kg
-            - l
-            - pack
-        target:
-          type: integer
-          description: Final goal in amount of units
-        current:
-          type: integer
-          default: 0
-          description: Current number of units collected
+          example: 39
 
     Phone:
       type: object
       required:
         - number
-        - availableOn
+        - types
       properties:
         number:
           type: string
-        availableOn:
+          example: '0800 300 114'
+        types:
           type: array
           minItems: 1
           items:
@@ -902,8 +731,9 @@ components:
               - telegram
               - whatsapp
               - signal
+          example: 'cellular'
 
-    Media:
+    MediaResponse:
       type: object
       required:
         - id
@@ -911,15 +741,19 @@ components:
         id:
           type: string
           format: uuid
-        description:
-          type: string
+          example: '8751674d-ea92-4a01-95d1-d50e603c6920'
 
-    Error:
+    ErrorResponse:
       type: object
       properties:
+        timestamp:
+          type: string
+          format: date-time
+          example: '2023-11-21T14:48:41.877976Z'
         message:
           type: string
           description: A human-readable message providing more details about the error.
+          example: 'JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \"<uuid>\": UUID has to be represented by standard 36-char representation'
         details:
           type: string
           description: Additional details about the error, if available.
@@ -931,48 +765,32 @@ components:
               field:
                 type: string
                 description: The field associated with this error.
+                example: 'uuid'
               message:
                 type: string
                 description: A human-readable message providing more details about the field error.
+                example: 'JSON parse error: Cannot deserialize value of type `java.util.UUID` from String \"<uuid>\": UUID has to be represented by standard 36-char representation'
           description: An array of errors relating to specific fields in the request.
 
-  securitySchemes:
-    OAuth2:
-      type: oauth2
-      flows:
-        password:
-          tokenUrl: https://localhost:9000/realms/opora/protocol/openid-connect/token
-          scopes: { }
-
   responses:
+
     BadRequest:
       description: The request could not be understood or was missing required parameters.
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication credentials were missing or incorrect.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Forbidden:
-      description: The request was valid but the server is refusing action. The user might not have the necessary permissions for a resource.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+            $ref: '#/components/schemas/ErrorResponse'
+
     NotFound:
       description: The requested resource was not found.
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Error'
+            $ref: '#/components/schemas/ErrorResponse'
 
     InternalServerError:
       description: The server encountered an internal error or misconfiguration and was unable to complete your request.
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Error'
+            $ref: '#/components/schemas/ErrorResponse'
